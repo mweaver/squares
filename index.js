@@ -12,11 +12,18 @@
     function initialize () {
         for (var x = 0; x < gridSize; x++) {
             for (var y = 0; y < gridSize; y++) {
+                var topLeftX = initialOffsetX + x * gridElementSize,
+                    topLeftY = initialOffsetY + (gridSize - y) * gridElementSize;
+
                 gridElements.push({
                     gridX: x,
                     gridY: y,
-                    physX: initialOffsetX + x * gridElementSize,
-                    physY: initialOffsetY + (gridSize - y) * gridElementSize
+                    renderX: topLeftX,
+                    renderY: topLeftY,
+                    top: topLeftX,
+                    bottom: topLeftX + gridElementSize,
+                    left: topLeftX,
+                    right: topLeftY + gridElementSize
                 });
             }
         }
@@ -26,8 +33,8 @@
         var gridElementsLength = gridElements.length;
 
         for (var x = 0; x < gridElementsLength; x++) {
-            ctx.strokeRect(gridElements[x].physX, gridElements[x].physY, gridElementSize, gridElementSize);
-            ctx.fillText(gridElements[x].gridX + ',' + gridElements[x].gridY, gridElements[x].physX + 5, gridElements[x].physY + 10);
+            ctx.strokeRect(gridElements[x].renderX, gridElements[x].renderY, gridElementSize, gridElementSize);
+            ctx.fillText(gridElements[x].gridX + ',' + gridElements[x].gridY, gridElements[x].renderX + 5, gridElements[x].renderY + 10);
         }
     }
 
@@ -66,6 +73,8 @@
             y = event.pageY - elemTop;
 
         console.log('x: ', x, 'y: ', y);
+
+        // detect click
     });
 
     initialize();
