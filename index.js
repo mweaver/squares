@@ -5,13 +5,11 @@
         elemTop = canvas.offsetTop,
         gridSize = 9,
         gridElements = [],
-        gridElementSize = 25,
+        gridElementSize = 40,
         initialOffsetX = 30,
         initialOffsetY = 30;
 
     function initialize () {
-        var totalGridElements = gridSize * gridSize;
-
         for (var x = 0; x < gridSize; x++) {
             for (var y = 0; y < gridSize; y++) {
                 gridElements.push({
