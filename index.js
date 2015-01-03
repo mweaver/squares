@@ -31,6 +31,36 @@
         }
     }
 
+    function getPossibleSquares (pointA, pointB) {
+        var slopeX = pointB.gridX - pointA.gridX,
+            slopeY = pointB.gridY - pointA.gridY,
+            invSlopeX = -1 * slopeY,
+            invSlopeY = slopeX,
+            pointC1, pointD1, pointC2, pointD2;
+
+        pointC1 = {
+            gridX: pointA.gridX + invSlopeX,
+            gridY: pointA.gridY + invSlopeY
+        };
+
+        pointD1 = {
+            gridX: pointB.gridX + invSlopeX,
+            gridY: pointB.gridY + invSlopeY
+        };
+
+        pointC2 = {
+            gridX: pointA.gridX - invSlopeX,
+            gridY: pointA.gridY - invSlopeY
+        };
+
+        pointD2 = {
+            gridX: pointB.gridX - invSlopeX,
+            gridY: pointB.gridY - invSlopeY
+        };
+
+        console.log('point A: ', pointA, 'point B: ', pointB, 'point C1: ', pointC1, 'point D1: ', pointD1, 'point C2: ', pointC2, 'point D2: ', pointD2);
+    }
+
     canvas.addEventListener('click', function (event) {
         var x = event.pageX - elemLeft,
             y = event.pageY - elemTop;
@@ -40,4 +70,5 @@
 
     initialize();
     drawGrid();
+    getPossibleSquares({gridX: 1, gridY: 4}, {gridX: 6, gridY: 6})
 })();
