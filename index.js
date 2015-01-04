@@ -3,17 +3,32 @@
         ctx = canvas.getContext('2d'),
         elemLeft = canvas.offsetLeft,
         elemTop = canvas.offsetTop,
-        gridSize = 9,
+        gridSize = 12,
         gridElements = [],
         gridElementSize = 40,
+        gridTop = 0,
+        gridBottom = 0,
+        gridLeft = 0,
+        gridRight = 0,
         initialOffsetX = 30,
         initialOffsetY = 30;
 
     function initialize () {
+
+        gridTop = initialOffsetY;
+        gridBottom = initialOffsetY + (gridSize * gridElementSize);
+        gridLeft = initialOffsetX;
+        gridRight = initialOffsetX + (gridSize * gridElementSize);
+
+        console.log('gridTop: ', gridTop);
+        console.log('gridBottom: ', gridBottom);
+        console.log('gridLeft: ', gridLeft);
+        console.log('gridRight: ', gridRight);
+
         for (var x = 0; x < gridSize; x++) {
             for (var y = 0; y < gridSize; y++) {
                 var topLeftX = initialOffsetX + x * gridElementSize,
-                    topLeftY = initialOffsetY + (gridSize - y) * gridElementSize;
+                    topLeftY = initialOffsetY + (gridSize - 1 - y) * gridElementSize;
 
                 gridElements.push({
                     gridX: x,
@@ -74,10 +89,14 @@
 
         console.log('x: ', x, 'y: ', y);
 
+        if (x < gridLeft || x > gridRight || y < gridTop || y > gridBottom) {
+            console.log('outside the grid');
+        }
+
         // detect click
     });
 
     initialize();
     drawGrid();
-    getPossibleSquares({gridX: 1, gridY: 4}, {gridX: 6, gridY: 6})
+    getPossibleSquares({gridX: 2, gridY: 4}, {gridX: 7, gridY: 6})
 })();
