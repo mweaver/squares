@@ -48,13 +48,13 @@
     function drawGrid () {
         var gridElementsLength = gridElements.length;
 
-        for (var x = 0; x < gridElementsLength; x++) {
-            var row = gridElements[x],
-                rowLength = row.length;
+        for (var y = 0; y < gridElementsLength; y++) {
+            var gridElement;
 
-            for (var y = 0; y < rowLength; y++) {
-                ctx.strokeRect(row[y].renderX, row[y].renderY, gridElementSize, gridElementSize);
-                ctx.fillText(row[y].gridX + ',' + row[y].gridY, row[y].renderX + 5, row[y].renderY + 10);
+            for (var x = 0; x < gridElementsLength; x++) {
+                gridElement = gridElements[x][y];
+                ctx.strokeRect(gridElement.renderX, gridElement.renderY, gridElementSize, gridElementSize);
+                ctx.fillText(gridElement.gridX + ',' + gridElement.gridY, gridElement.renderX + 5, gridElement.renderY + 10);
             }
         }
     }
