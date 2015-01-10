@@ -26,11 +26,12 @@
         console.log('gridRight: ', gridRight);
 
         for (var x = 0; x < gridSize; x++) {
+            gridElements.push([]);
             for (var y = 0; y < gridSize; y++) {
                 var topLeftX = initialOffsetX + x * gridElementSize,
                     topLeftY = initialOffsetY + (gridSize - 1 - y) * gridElementSize;
 
-                gridElements.push({
+                gridElements[x].push({
                     gridX: x,
                     gridY: y,
                     renderX: topLeftX,
@@ -48,8 +49,13 @@
         var gridElementsLength = gridElements.length;
 
         for (var x = 0; x < gridElementsLength; x++) {
-            ctx.strokeRect(gridElements[x].renderX, gridElements[x].renderY, gridElementSize, gridElementSize);
-            ctx.fillText(gridElements[x].gridX + ',' + gridElements[x].gridY, gridElements[x].renderX + 5, gridElements[x].renderY + 10);
+            var row = gridElements[x],
+                rowLength = row.length;
+
+            for (var y = 0; y < rowLength; y++) {
+                ctx.strokeRect(row[y].renderX, row[y].renderY, gridElementSize, gridElementSize);
+                ctx.fillText(row[y].gridX + ',' + row[y].gridY, row[y].renderX + 5, row[y].renderY + 10);
+            }
         }
     }
 
@@ -91,6 +97,10 @@
 
         if (x < gridLeft || x > gridRight || y < gridTop || y > gridBottom) {
             console.log('outside the grid');
+        }
+        else {
+            console.log('clicked x coord: ', Math.floor((x - gridLeft) / gridElementSize));
+            console.log('clicked y coord: ', Math.floor((y - gridTop) / gridElementSize))
         }
 
         // detect click
