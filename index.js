@@ -100,7 +100,7 @@
         }
         else {
             console.log('clicked x coord: ', Math.floor((x - gridLeft) / gridElementSize));
-            console.log('clicked y coord: ', Math.floor((y - gridTop) / gridElementSize))
+            console.log('clicked y coord: ', (gridSize - 1) - Math.floor((y - gridTop) / gridElementSize));
         }
 
         // detect click
