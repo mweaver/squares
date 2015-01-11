@@ -25,21 +25,25 @@
         console.log('gridLeft: ', gridLeft);
         console.log('gridRight: ', gridRight);
 
-        for (var x = 0; x < gridSize; x++) {
+        for (var y = 0; y < gridSize; y++) {
             gridElements.push([]);
-            for (var y = 0; y < gridSize; y++) {
+            for (var x = 0; x < gridSize; x++) {
                 var topLeftX = initialOffsetX + x * gridElementSize,
-                    topLeftY = initialOffsetY + (gridSize - 1 - y) * gridElementSize;
+                    topLeftY = initialOffsetY + (gridSize - 1 - y) * gridElementSize,
+                    top = topLeftY,
+                    bottom = topLeftY + gridElementSize,
+                    left = topLeftX,
+                    right = topLeftX + gridElementSize;
 
-                gridElements[x].push({
+                gridElements[y].push({
                     gridX: x,
                     gridY: y,
                     renderX: topLeftX,
                     renderY: topLeftY,
-                    top: topLeftY,
-                    bottom: topLeftY + gridElementSize,
-                    left: topLeftX,
-                    right: topLeftX + gridElementSize
+                    top: top,
+                    bottom: bottom,
+                    left: left,
+                    right: right
                 });
             }
         }
@@ -104,8 +108,8 @@
     canvas.addEventListener('click', function (event) {
         var x = event.pageX - elemLeft,
             y = event.pageY - elemTop,
-            clickedGridX = Math.floor((x - gridLeft) / gridElementSize),
-            clickedGridY = (gridSize - 1) - Math.floor((y - gridTop) / gridElementSize),
+            clickedGridY = Math.floor((x - gridLeft) / gridElementSize),
+            clickedGridX = (gridSize - 1) - Math.floor((y - gridTop) / gridElementSize),
             clickedGridElement = gridElements[clickedGridX][clickedGridY],
 
             circleX = (clickedGridElement.right + clickedGridElement.left)/ 2,
@@ -125,7 +129,7 @@
             console.log('draw circle x: ', circleX);
             console.log('draw circle y: ', circleY);
 
-            drawCircle(circleY, circleX);
+            drawCircle(circleX, circleY);
 
 
         }
