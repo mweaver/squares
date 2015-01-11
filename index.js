@@ -36,10 +36,10 @@
                     gridY: y,
                     renderX: topLeftX,
                     renderY: topLeftY,
-                    top: topLeftX,
-                    bottom: topLeftX + gridElementSize,
+                    top: topLeftY,
+                    bottom: topLeftY + gridElementSize,
                     left: topLeftX,
-                    right: topLeftY + gridElementSize
+                    right: topLeftX + gridElementSize
                 });
             }
         }
@@ -57,6 +57,18 @@
                 ctx.fillText(gridElement.gridX + ',' + gridElement.gridY, gridElement.renderX + 5, gridElement.renderY + 10);
             }
         }
+    }
+
+    function drawCircle (centerX, centerY) {
+        var radius = 15;
+
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+        ctx.fillStyle = 'blue';
+        ctx.fill();
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = '#003300';
+        ctx.stroke();
     }
 
     function getPossibleSquares (pointA, pointB) {
@@ -91,7 +103,13 @@
 
     canvas.addEventListener('click', function (event) {
         var x = event.pageX - elemLeft,
-            y = event.pageY - elemTop;
+            y = event.pageY - elemTop,
+            clickedGridX = Math.floor((x - gridLeft) / gridElementSize),
+            clickedGridY = (gridSize - 1) - Math.floor((y - gridTop) / gridElementSize),
+            clickedGridElement = gridElements[clickedGridX][clickedGridY],
+
+            circleX = (clickedGridElement.right + clickedGridElement.left)/ 2,
+            circleY = (clickedGridElement.bottom + clickedGridElement.top)/2;
 
         console.log('x: ', x, 'y: ', y);
 
@@ -99,8 +117,17 @@
             console.log('outside the grid');
         }
         else {
-            console.log('clicked x coord: ', Math.floor((x - gridLeft) / gridElementSize));
-            console.log('clicked y coord: ', (gridSize - 1) - Math.floor((y - gridTop) / gridElementSize));
+            console.log('clicked x coord: ', clickedGridX);
+            console.log('clicked y coord: ', clickedGridY);
+
+            console.log('clicked coord: ', clickedGridElement);
+
+            console.log('draw circle x: ', circleX);
+            console.log('draw circle y: ', circleY);
+
+            drawCircle(circleY, circleX);
+
+
         }
 
         // detect click
