@@ -75,6 +75,16 @@
         ctx.stroke();
     }
 
+    function drawLine() {
+        ctx.beginPath();
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = 'rgba(0, 102, 255, 0.4)';
+
+        ctx.moveTo(600, 20);
+        ctx.lineTo(580, 200);
+        ctx.stroke();
+    }
+
     function getPossibleSquares (pointA, pointB) {
         var slopeX = pointB.gridX - pointA.gridX,
             slopeY = pointB.gridY - pointA.gridY,
@@ -108,6 +118,8 @@
     canvas.addEventListener('click', function (event) {
         var x = event.pageX - elemLeft,
             y = event.pageY - elemTop,
+
+            // TODO: Check maths...this works, but not sure why...  :/
             clickedGridY = Math.floor((x - gridLeft) / gridElementSize),
             clickedGridX = (gridSize - 1) - Math.floor((y - gridTop) / gridElementSize),
             clickedGridElement = gridElements[clickedGridX][clickedGridY],
@@ -139,5 +151,6 @@
 
     initialize();
     drawGrid();
+    drawLine();
     getPossibleSquares({gridX: 2, gridY: 4}, {gridX: 7, gridY: 6})
 })();
