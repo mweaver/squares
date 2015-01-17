@@ -80,7 +80,7 @@
     }
 
     function drawCircle (gridElement) {
-        var radius = 0.4 * gridElementSize,
+        var radius = 0.3 * gridElementSize,
             physicalCenterPoint = gridElement.getPhysicalCenter();
 
         ctx.beginPath();
@@ -132,18 +132,36 @@
         console.log('point A: ', pointA, 'point B: ', pointB, 'point C1: ', pointC1, 'point D1: ', pointD1, 'point C2: ', pointC2, 'point D2: ', pointD2);
 
         return {
-            thirdPoint: [pointC1, pointD1],
-            fourthPoint: [pointC2, pointD2]
+            secondSquare: [pointC1, pointD1],
+            thirdSquare: [pointC2, pointD2]
         }
     }
 
     function resolveSquares () {
-        var allElementsLength = allSelectedGridElements.length;
+
+        var allElementsLength = allSelectedGridElements.length,
+            potentialSquarePoints;
+
+        function findGridElementInArray (gridX, gridY) {
+            var arrayLength = allSelectedGridElements.length,
+                currentElement,
+                rtnValue;
+
+            for (var x = 0; x < arrayLength; x++) {
+                currentElement = allSelectedGridElements[x];
+
+                if (currentElement.gridX === gridX && currentElement.gridY === gridY) {
+                    rtnValue = currentElement;
+                }
+            }
+
+            return rtnValue;
+        }
 
         if (allElementsLength > 2) {
             console.log('start resolving');
             for (var x = 0; x < allElementsLength; x++) {
-
+                potentialSquarePoints = getPossibleSquares(selectedGridElement, allSelectedGridElements[x]);
             }
         }
 
