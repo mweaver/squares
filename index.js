@@ -64,7 +64,7 @@
     }
 
     function drawCircle (centerX, centerY) {
-        var radius = 15;
+        var radius = 0.4 * gridElementSize;
 
         ctx.beginPath();
         ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
