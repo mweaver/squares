@@ -13,7 +13,8 @@
         initialOffsetX = 30,
         initialOffsetY = 30,
 
-        selectedGridElement;
+        selectedGridElement,
+        allSelectedGridElements = [];
 
     function initialize () {
 
@@ -48,7 +49,7 @@
                     right: right,
                     getPhysicalCenter: function () {
                         var circleX, circleY;
-                        
+
                         circleX = (this.right + this.left)/ 2;
                         circleY = (this.bottom + this.top)/2;
 
@@ -131,12 +132,24 @@
         console.log('point A: ', pointA, 'point B: ', pointB, 'point C1: ', pointC1, 'point D1: ', pointD1, 'point C2: ', pointC2, 'point D2: ', pointD2);
     }
 
+    function resolveSquares () {
+        if (allSelectedGridElements.length > 2) {
+            console.log('start resolving');
+            
+        }
+
+        allSelectedGridElements.push(selectedGridElement);
+        console.log(allSelectedGridElements.length);
+    }
+
     canvas.addEventListener('click', function (event) {
         var x = event.pageX - elemLeft,
             y = event.pageY - elemTop,
             clickedGridY = Math.floor((x - gridLeft) / gridElementSize),
             clickedGridX = (gridSize - 1) - Math.floor((y - gridTop) / gridElementSize),
             clickedGridElement = gridElements[clickedGridX][clickedGridY];
+
+        selectedGridElement = clickedGridElement;
 
         if (x < gridLeft || x > gridRight || y < gridTop || y > gridBottom) {
             console.log('outside the grid');
@@ -148,10 +161,12 @@
 
             drawCircle(clickedGridElement);
         }
+
+        resolveSquares();
     });
 
     initialize();
     drawGrid();
-    drawLine();
+    //drawLine();
     getPossibleSquares({gridX: 2, gridY: 4}, {gridX: 7, gridY: 6})
 })();
