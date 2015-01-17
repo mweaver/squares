@@ -130,12 +130,21 @@
         };
 
         console.log('point A: ', pointA, 'point B: ', pointB, 'point C1: ', pointC1, 'point D1: ', pointD1, 'point C2: ', pointC2, 'point D2: ', pointD2);
+
+        return {
+            thirdPoint: [pointC1, pointD1],
+            fourthPoint: [pointC2, pointD2]
+        }
     }
 
     function resolveSquares () {
-        if (allSelectedGridElements.length > 2) {
+        var allElementsLength = allSelectedGridElements.length;
+
+        if (allElementsLength > 2) {
             console.log('start resolving');
-            
+            for (var x = 0; x < allElementsLength; x++) {
+
+            }
         }
 
         allSelectedGridElements.push(selectedGridElement);
