@@ -11,7 +11,9 @@
         gridLeft = 0,
         gridRight = 0,
         initialOffsetX = 30,
-        initialOffsetY = 30;
+        initialOffsetY = 30,
+
+        selectedGridElement;
 
     function initialize () {
 
@@ -43,7 +45,20 @@
                     top: top,
                     bottom: bottom,
                     left: left,
-                    right: right
+                    right: right,
+                    getPhysicalCenter: function () {
+                        var circleX, circleY;
+                        
+                        circleX = (this.right + this.left)/ 2;
+                        circleY = (this.bottom + this.top)/2;
+
+                        console.log('circle x: ', circleX, 'circle y: ', circleY);
+
+                        return {
+                            x: circleX,
+                            y: circleY
+                        };
+                    }
                 });
             }
         }
@@ -63,11 +78,12 @@
         }
     }
 
-    function drawCircle (centerX, centerY) {
-        var radius = 0.4 * gridElementSize;
+    function drawCircle (gridElement) {
+        var radius = 0.4 * gridElementSize,
+            physicalCenterPoint = gridElement.getPhysicalCenter();
 
         ctx.beginPath();
-        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+        ctx.arc(physicalCenterPoint.x, physicalCenterPoint.y, radius, 0, 2 * Math.PI);
         ctx.fillStyle = 'blue';
         ctx.fill();
         ctx.lineWidth = 1;
@@ -118,16 +134,9 @@
     canvas.addEventListener('click', function (event) {
         var x = event.pageX - elemLeft,
             y = event.pageY - elemTop,
-
-            // TODO: Check maths...this works, but not sure why...  :/
             clickedGridY = Math.floor((x - gridLeft) / gridElementSize),
             clickedGridX = (gridSize - 1) - Math.floor((y - gridTop) / gridElementSize),
-            clickedGridElement = gridElements[clickedGridX][clickedGridY],
-
-            circleX = (clickedGridElement.right + clickedGridElement.left)/ 2,
-            circleY = (clickedGridElement.bottom + clickedGridElement.top)/2;
-
-        console.log('x: ', x, 'y: ', y);
+            clickedGridElement = gridElements[clickedGridX][clickedGridY];
 
         if (x < gridLeft || x > gridRight || y < gridTop || y > gridBottom) {
             console.log('outside the grid');
@@ -135,18 +144,10 @@
         else {
             console.log('clicked x coord: ', clickedGridX);
             console.log('clicked y coord: ', clickedGridY);
-
             console.log('clicked coord: ', clickedGridElement);
 
-            console.log('draw circle x: ', circleX);
-            console.log('draw circle y: ', circleY);
-
-            drawCircle(circleX, circleY);
-
-
+            drawCircle(clickedGridElement);
         }
-
-        // detect click
     });
 
     initialize();
