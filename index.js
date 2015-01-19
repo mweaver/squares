@@ -168,15 +168,27 @@
             for (var x = 0; x < allElementsLength; x++) {
                 potentialSquarePoints = getPossibleSquares(selectedGridElement, allSelectedGridElements[x]);
 
-                Object.keys(potentialSquarePoints).forEach(function (key) {
-                    var psp = potentialSquarePoints[key];
+                var objectKeys = Object.keys(potentialSquarePoints),
+                    objectKeysLength = objectKeys.length;
+
+                for (var y = 0; y < objectKeysLength; y++) {
+                    var psp = potentialSquarePoints[objectKeys[y]];
 
                     if (findGridElementInArray(psp[0].gridX, psp[0].gridY) &&
                         findGridElementInArray(psp[1].gridX, psp[1].gridY)) {
 
-                        drawLineBetweenPoints(gridElements[psp[0].gridX][psp[0].gridY], gridElements[psp[1].gridX][psp[1].gridY]);
+                        // draw square between found points
+
+                        drawLineBetweenPoints(selectedGridElement, allSelectedGridElements[x]);
+                        drawLineBetweenPoints(allSelectedGridElements[x], gridElements[psp[1].gridX][psp[1].gridY]);
+                        drawLineBetweenPoints(gridElements[psp[1].gridX][psp[1].gridY], gridElements[psp[0].gridX][psp[0].gridY]);
+                        drawLineBetweenPoints(gridElements[psp[0].gridX][psp[0].gridY], selectedGridElement);
+
+                        break;
+
+                        //drawLineBetweenPoints(gridElements[psp[0].gridX][psp[0].gridY], gridElements[psp[1].gridX][psp[1].gridY]);
                     }
-                });
+                }
             }
         }
 
