@@ -85,20 +85,25 @@
 
         ctx.beginPath();
         ctx.arc(physicalCenterPoint.x, physicalCenterPoint.y, radius, 0, 2 * Math.PI);
-        ctx.fillStyle = 'blue';
+        ctx.fillStyle = 'rgba(0, 102, 255, 0.4)';
         ctx.fill();
         ctx.lineWidth = 1;
         ctx.strokeStyle = '#003300';
         ctx.stroke();
     }
 
-    function drawLine() {
+    function drawLineBetweenPoints(gridPoint1, gridPoint2) {
+        var start, end;
+
+        start = gridPoint1.getPhysicalCenter();
+        end = gridPoint2.getPhysicalCenter();
+
         ctx.beginPath();
         ctx.lineWidth = 4;
-        ctx.strokeStyle = 'rgba(0, 102, 255, 0.4)';
+        ctx.strokeStyle = 'rgba(0, 102, 255, 0.8)';
 
-        ctx.moveTo(600, 20);
-        ctx.lineTo(580, 200);
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(end.x, end.y);
         ctx.stroke();
     }
 
@@ -162,6 +167,16 @@
             console.log('start resolving');
             for (var x = 0; x < allElementsLength; x++) {
                 potentialSquarePoints = getPossibleSquares(selectedGridElement, allSelectedGridElements[x]);
+
+                Object.keys(potentialSquarePoints).forEach(function (key) {
+                    var psp = potentialSquarePoints[key];
+
+                    if (findGridElementInArray(psp[0].gridX, psp[0].gridY) &&
+                        findGridElementInArray(psp[1].gridX, psp[1].gridY)) {
+
+                        drawLineBetweenPoints(gridElements[psp[0].gridX][psp[0].gridY], gridElements[psp[1].gridX][psp[1].gridY]);
+                    }
+                });
             }
         }
 
