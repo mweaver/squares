@@ -179,9 +179,18 @@
 
                         // draw square between found points
 
+                        console.log('potential square points: ', psp);
+
+                        console.log('drawing from ', selectedGridElement.gridX, selectedGridElement.gridY, 'to ', allSelectedGridElements[x].gridX, allSelectedGridElements[x].gridY);
                         drawLineBetweenPoints(selectedGridElement, allSelectedGridElements[x]);
+
+                        console.log('drawing from ', allSelectedGridElements[x].gridX, allSelectedGridElements[x].gridY, 'to ', gridElements[psp[1].gridX][psp[1].gridY].gridX, gridElements[psp[1].gridX][psp[1].gridY].gridY);
                         drawLineBetweenPoints(allSelectedGridElements[x], gridElements[psp[1].gridX][psp[1].gridY]);
+
+                        console.log('drawing from ', gridElements[psp[1].gridX][psp[1].gridY].gridX, gridElements[psp[1].gridX][psp[1].gridY].gridY, 'to ', gridElements[psp[0].gridX][psp[0].gridY].gridX, gridElements[psp[0].gridX][psp[0].gridY].gridY);
                         drawLineBetweenPoints(gridElements[psp[1].gridX][psp[1].gridY], gridElements[psp[0].gridX][psp[0].gridY]);
+
+                        console.log('drawing from ', gridElements[psp[0].gridX][psp[0].gridY].gridX, gridElements[psp[0].gridX][psp[0].gridY].gridY, 'to ', selectedGridElement.gridX, selectedGridElement.gridY);
                         drawLineBetweenPoints(gridElements[psp[0].gridX][psp[0].gridY], selectedGridElement);
 
                         break;
@@ -191,7 +200,7 @@
                 }
             }
         }
-
+        console.log('pushing: ', selectedGridElement);
         allSelectedGridElements.push(selectedGridElement);
         console.log(allSelectedGridElements.length);
     }
