@@ -28,9 +28,9 @@
         console.log('gridLeft: ', gridLeft);
         console.log('gridRight: ', gridRight);
 
-        for (var y = 0; y < gridSize; y++) {
+        for (var x = 0; x < gridSize; x++) {
             gridElements.push([]);
-            for (var x = 0; x < gridSize; x++) {
+            for (var y = 0; y < gridSize; y++) {
                 var topLeftX = initialOffsetX + x * gridElementSize,
                     topLeftY = initialOffsetY + (gridSize - 1 - y) * gridElementSize,
                     top = topLeftY,
@@ -38,7 +38,7 @@
                     left = topLeftX,
                     right = topLeftX + gridElementSize;
 
-                gridElements[y].push({
+                gridElements[x].push({
                     gridX: x,
                     gridY: y,
                     renderX: topLeftX,
@@ -208,9 +208,11 @@
     canvas.addEventListener('click', function (event) {
         var x = event.pageX - elemLeft,
             y = event.pageY - elemTop,
-            clickedGridY = Math.floor((x - gridLeft) / gridElementSize),
-            clickedGridX = (gridSize - 1) - Math.floor((y - gridTop) / gridElementSize),
+            clickedGridX = Math.floor((x - gridLeft) / gridElementSize),
+            clickedGridY = (gridSize - 1) - Math.floor((y - gridTop) / gridElementSize),
             clickedGridElement = gridElements[clickedGridX][clickedGridY];
+
+        console.log('I clicked: ', clickedGridElement);
 
         selectedGridElement = clickedGridElement;
 
